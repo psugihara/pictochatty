@@ -2,6 +2,7 @@ var express = require('express'),
     app = express(),
     http = require('http'),
     path = require('path'),
+    gifs = require('lib/get_gifs.js'),
     server = http.createServer(app),
     io = require('socket.io').listen(server);
 
@@ -28,7 +29,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/:thread', function(req, res) {
-    res.render('messages', { title: req.param('thread'), messages: [] });
+    res.render('messages', { title: req.param('thread'), keyboard: gifs.GetGifs('gif') });
 });
 
 var Channel = require('./libs/channel.js'),
