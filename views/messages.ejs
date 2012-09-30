@@ -14,15 +14,10 @@
 		  <div name="newMessage" id="messageText"></div>
 		</label>
 		<div id='keyboard'>
-			<span class='keyboard' id='a'><img height="128" width="128" src="<%= keyboard[0] %>"></span>
-			<span class='keyboard' id='s'><img height="128" width="128" src="<%= keyboard[1] %>"></span>
-			<span class='keyboard' id='d'><img height="128" width="128" src="<%= keyboard[2] %>"></span>
-			<span class='keyboard' id='f'><img height="128" width="128"  src="<%= keyboard[3] %>"></span>
-			<span class='keyboard' id='g'><img height="128" width="128" src="<%= keyboard[4] %>"></span>
-			<span class='keyboard' id='h'><img height="128" width="128" src="<%= keyboard[5] %>"></span>
-			<span class='keyboard' id='j'><img height="128" width="128" src="<%= keyboard[6] %>"></span>
-			<span class='keyboard' id='k'><img height="128" width="128" src="<%= 
-				keyboard[7] %>"></span>
+			<% keys = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'] %>
+			<% for (var i = 0; i < keys.length; i++) { %>
+			<span class="key" id="<%= keys[i] %>"><img height="100" width="100" src="<%= keyboard[i] %>"><br/><%= keys[i] %></span>
+			<% } %>
 		</div>
 		<script src="javascripts/main.js"></script>
 	</body>

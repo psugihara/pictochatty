@@ -36,11 +36,11 @@ Messenger.prototype.openSocket = function() {
 }
 
 Messenger.prototype.sendMessage = function(allowBlank) {
-  var msg = this.$text.val().trim();
+  var msg = this.$text.html().trim();
   if (msg || allowBlank) {
     msg = {
       channelName: this.channelName,
-      message: msg
+      message: this.idChar + ': ' + msg
     }
     this.socket.emit('message', JSON.stringify(msg));
   }
@@ -53,7 +53,7 @@ Messenger.prototype.adjustLineHeight = function() {
 }
 
 Messenger.prototype.scrollToBottom = function() {
-  $("html:not(:animated),body:not(:animated)").animate({ scrollTop: document.height}, 1200);
+  $("html:not(:animated),body:not(:animated)").animate({ scrollTop: document.height }, 1200);
 }
 
 var Keyboard = function(messenger) {
@@ -64,34 +64,34 @@ Keyboard.prototype.press = function(key) {
   switch (key) {
     case 13: //return
       this.messenger.sendMessage();
-      this.messenger.$text.html(this.messenger.idChar + ': ');
+      this.messenger.$text.html('');
       break;
     case 97: // a
-      this.messenger.$text.append($('#a').clone());
+      this.messenger.$text.append($('#a img').clone());
       break;
     case 115: // s
-      this.messenger.$text.append($('#s').clone());
+      this.messenger.$text.append($('#s img').clone());
       break;
     case 100: // d
-      this.messenger.$text.append($('#d').clone());
+      this.messenger.$text.append($('#d img').clone());
       break;
     case 102: // f
-      this.messenger.$text.append($('#f').clone());
+      this.messenger.$text.append($('#f img').clone());
       break;
     case 103: // g
-      this.messenger.$text.append($('#g').clone());
+      this.messenger.$text.append($('#g img').clone());
       break;
     case 104: // h
-      this.messenger.$text.append($('#h').clone());
+      this.messenger.$text.append($('#h img').clone());
       break;
     case 106: // j
-      this.messenger.$text.append($('#j').clone());
+      this.messenger.$text.append($('#j img').clone());
       break;
     case 107: // k
-      this.messenger.$text.append($('#k').clone());
+      this.messenger.$text.append($('#k img').clone());
       break;
     case 108: // l
-      this.messenger.$text.append($('#l').clone());
+      this.messenger.$text.append($('#l img').clone());
   }
 }
 

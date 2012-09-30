@@ -28,17 +28,16 @@ var DEFAULT = [
 function GetGifs(tag, cb) {
     Request({url: tumblr + tag, json:true}, function (error, res, body) {
         if (!error && res.statusCode == 200) {
-            console.log(tumblr + tag);
-            var urls = new Array();
-            var i = 0;
+
+            var urls = [];
+
             for (var i = 0; i < body.response.length; i++) {
                 var entry = body.response[i];
                 if (typeof entry.photos !== 'undefined') {
-                    //console.log(entry.photos[0].original_size.url);
                         urls[i] = entry.photos[0].original_size.url;
                 }
             }
-            console.log('hey');
+
             cb(urls);
         }
         else {
