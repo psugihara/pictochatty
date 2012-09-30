@@ -18,7 +18,8 @@
   "dependencies": {
     "socket.io": "latest",
     "express": "latest",
-    "ejs": "latest"
+    "ejs": "latest",
+    "request": "latest"
   },
   "engines": {
     "node": ">=0.8"
