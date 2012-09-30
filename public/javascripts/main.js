@@ -54,45 +54,58 @@ Messenger.prototype.adjustLineHeight = function() {
 
 Messenger.prototype.scrollToBottom = function() {
   $("html:not(:animated),body:not(:animated)").animate({ scrollTop: document.height }, 1200);
+  $img = $('img');
+  if ($img.length > 120) {
+    $img.slice(0, $img.length - 120);
+  }
 }
 
 var Keyboard = function(messenger) {
   this.messenger = messenger;
 }
 
-Keyboard.prototype.press = function(key) {
-  switch (key) {
+Keyboard.prototype.press = function(event) {
+  var hit = true;
+  switch (event.which) {
     case 13: //return
       this.messenger.sendMessage();
       this.messenger.$text.html('');
       break;
-    case 97: // a
+    case 65: // a
       this.messenger.$text.append($('#a img').clone());
       break;
-    case 115: // s
+    case 83: // s
       this.messenger.$text.append($('#s img').clone());
       break;
-    case 100: // d
+    case 68: // d
       this.messenger.$text.append($('#d img').clone());
       break;
-    case 102: // f
+    case 70: // f
       this.messenger.$text.append($('#f img').clone());
       break;
-    case 103: // g
+    case 71: // g
       this.messenger.$text.append($('#g img').clone());
       break;
-    case 104: // h
+    case 72: // h
       this.messenger.$text.append($('#h img').clone());
       break;
-    case 106: // j
+    case 74: // j
       this.messenger.$text.append($('#j img').clone());
       break;
-    case 107: // k
+    case 75: // k
       this.messenger.$text.append($('#k img').clone());
       break;
-    case 108: // l
+    case 76: // l
       this.messenger.$text.append($('#l img').clone());
+      break;
+    case 8: // delete
+      $('img:last-child', this.messenger.$text).remove();
+      break;
+    default:
+      hit = false;
   }
+  if (hit)
+      event.preventDefault().stopPropagation();
 }
 
 $(document).ready(function() {
@@ -107,9 +120,8 @@ $(document).ready(function() {
   $('input#messageText').val(mess.idChar + ': ');
   $('#messageText').focus();
 
-  $('body').keypress(function(event) {
-    keyboard.press(event.which);
-    event.preventDefault();
+  $('body').keydown(function(event) {
+    keyboard.press(event);
   });
 
   $(window).resize(function(event) {
