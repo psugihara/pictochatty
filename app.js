@@ -1,41 +1,60 @@
-var app = require('express')(),
+var express = require('express'),
+    app = express(),
     http = require('http'),
+    path = require('path'),
     server = http.createServer(app),
     io = require('socket.io').listen(server);
 
-server.listen(3000);
-app.get('/', function(req, res){
-    res.send('Hello World');
+app.configure(function() {
+  app.set('port', process.env.PORT || 3000);
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'ejs');
+  app.use(express.favicon());
+  app.use(express.logger('dev'));
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(express.cookieParser('your secret here'));
+  app.use(express.session());
+  app.use(app.router);
+  app.use(express.static(path.join(__dirname, 'public')));
+});
+
+app.configure('development', function() {
+  app.use(express.errorHandler());
+});
+
+app.get('/', function(req, res) {
+    res.render('index', { title: 'picchat' });
+});
+
+app.get('/:thread', function(req, res) {
+    res.render('messages', { title: req.param('thread'), messages: [] });
 });
 
 var Channel = require('./libs/channel.js'),
-    channels = [];
-
-var channelNamed = function(name) {
-    var channel = _.detect(channels, function(channel) { return (channel.name === name); });
-    if (!channel) {
-        channel = new Channel(name);
-        channels.push(channel);
-    }
-    return channel;
-}
+    channels = {};
 
 io.on('connection', function(client) {
     client.on('message', function(message) {
-        console.log(message);
-        var message = JSON.parse(message);
-        var channel = channelNamed(message.channelName);
-        var msg = message.message;
+
+        var message = JSON.parse(message),
+            name = message.channelName,
+            channel = channels[name] || new Channel(name),
+            msg = message.message;
+
+        channels[name] = channel;
+
         if (!channel.member(client)) {
             channel.join(client);
         }
+
         channel.broadcast(msg, client);
-        // TODO: DB.storeMessage(message)...
     })
     client.on('disconnect', function() {
-        _.each(channels, function(channel) { channel.leave(client); });
+        for (var channel in channels)
+            channels[channel].leave(client);
     }) 
 })
 
-server.listen(3000);
-console.log('Listening on port 3000');
+server.listen(80);
+console.log('Listening on port 80');

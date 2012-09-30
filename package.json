@@ -1,10 +1,10 @@
 {
   "name": "pictochatty",
-  "version": "0.0.0",
+  "version": "0.0.0-5",
   "description": "chatchatchat with pics",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -13,10 +13,15 @@
   "keywords": [
     "chat"
   ],
-  "author": "Peter Sugihara, Alex Shovlin, Kathleen Warner",
+  "author": "Peter Sugihara <peter@campsh.com>, Alex Shovlin, Kathleen Warner",
   "license": "MIT",
   "dependencies": {
     "socket.io": "latest",
-    "express": "latest"
-  }
+    "express": "latest",
+    "ejs": "latest"
+  },
+  "engines": {
+    "node": ">=0.8"
+  },
+  "subdomain": "pictochatty"
 }

@@ -1,0 +1,49 @@
+body {
+  padding: 0;
+  margin: 0;
+  font: 13px DroidSansMonoRegular, Arial, sans-serif;
+  font-weight: 800;
+}
+
+.input {
+}
+
+#title {
+  position: fixed;
+  top: 0;
+  padding:0;
+  margin:0;
+  width:100%;
+  background: #FFCCCC;
+  text-align: right;
+  line-height: 1.3em;
+  opacity: .2;
+}
+
+#messageList {
+  top: 200px;
+  padding: 0;
+  padding-bottom:10px;
+  list-style-type: none;
+}
+
+.messageListItem {
+  padding-left: 10px;
+}
+
+#messageText {
+  font-size: inherit;
+  margin: 0;
+  padding: 0;
+  bottom: 0%;
+  width: 100%;
+  border: 0;
+  background: #FFEECC;
+  position:fixed;
+}
+
+/* IE 6 */
+* html #messageText {
+   position:absolute;
+   top:expression((0-(footer.offsetHeight)+(document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight)+(ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))+'px');
+}
