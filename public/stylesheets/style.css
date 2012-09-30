@@ -3,6 +3,7 @@ body {
   margin: 0;
   font: 13px DroidSansMonoRegular, Arial, sans-serif;
   font-weight: 800;
+  height: 100%;
 }
 
 .input {
@@ -35,11 +36,18 @@ body {
   font-size: inherit;
   margin: 0;
   padding: 0;
-  bottom: 0%;
+  bottom: 100px;
   width: 100%;
   border: 0;
   background: #FFEECC;
   position:fixed;
+  display: inline;
+}
+
+#keyboard {
+  height: 100px;
+  bottom: 0;
+  position: fixed;
 }
 
 /* IE 6 */
