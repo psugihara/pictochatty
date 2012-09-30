@@ -1,0 +1,18 @@
+{
+  "name": "pictochatty",
+  "version": "0.0.0",
+  "description": "chatchatchat with pics",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ptrsghr/pictochatty.git"
+  },
+  "keywords": [
+    "chat"
+  ],
+  "author": "Peter Sugihara, Alex Shovlin, Kathleen Warner",
+  "license": "MIT"
+}
