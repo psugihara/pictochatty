@@ -14,5 +14,9 @@
     "chat"
   ],
   "author": "Peter Sugihara, Alex Shovlin, Kathleen Warner",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "socket.io": "latest",
+    "express": "latest"
+  }
 }
