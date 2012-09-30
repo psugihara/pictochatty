@@ -1,6 +1,6 @@
 var Request = require('request');
 
-var tumblr = 'http://api.tumblr.com/v2/tagged?api_key=qbNY5cK4GHZxPElqaVR63ZU9LlIpBhHm2BCpGjPACA1TtaNFjM&limit=20&tag=';
+var tumblr = 'http://api.tumblr.com/v2/tagged?api_key=qbNY5cK4GHZxPElqaVR63ZU9LlIpBhHm2BCpGjPACA1TtaNFjM&limit=20&before=';
 
 var DEFAULT = [
     'http://25.media.tumblr.com/tumblr_mb5f0oZedW1qzaos7o1_1280.gif',
@@ -25,8 +25,15 @@ var DEFAULT = [
     'http://24.media.tumblr.com/tumblr_mb4tfn7z1e1rehgzwo1_500.gif'
 ];
 
+function randomDateIn2012() 
+{
+    var startOfYear = 1325431871;
+
+    return startOfYear + Math.random() * (1349019156 - startOfYear);
+}
+
 function GetGifs(tag, cb) {
-    Request({url: tumblr + tag, json:true}, function (error, res, body) {
+    Request({url: tumblr + randomDateIn2012() + '&tag=gif', json:true}, function (error, res, body) {
         if (!error && res.statusCode == 200) {
 
             var urls = [];
