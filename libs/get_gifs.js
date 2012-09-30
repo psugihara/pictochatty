@@ -13,14 +13,14 @@ function GetGifs(tag) {
     {
             var entry = body.response[i];
             console.log(entry);
-    if (typeof entry.photos !== 'undefined')
-    {
+        if (typeof entry.photos !== 'undefined')
+        {
                 urls[i] = entry.photos[0].original_size.url;
-       }
+        }
     }
 
         console.log(urls)
-return urls;
+return urls.slice(0,10);
     }
     console.log('Response code: ' + res.statusCode + ' for ' + tumblr + tag);
   });  
