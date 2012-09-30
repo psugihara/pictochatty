@@ -28,7 +28,6 @@ var DEFAULT = [
 function randomDateIn2012() 
 {
     var startOfYear = 1325431871;
-
     return startOfYear + Math.random() * (1349019156 - startOfYear);
 }
 
@@ -41,7 +40,7 @@ function GetGifs(tag, cb) {
             for (var i = 0; i < body.response.length; i++) {
                 var entry = body.response[i];
                 if (typeof entry.photos !== 'undefined') {
-                        urls[i] = entry.photos[0].original_size.url;
+                    urls[i] = entry.photos[0].original_size.url;
                 }
             }
 

@@ -1,6 +1,6 @@
 {
   "name": "pictochatty",
-  "version": "0.0.0-6",
+  "version": "0.0.0-17",
   "description": "chatchatchat with pics",
   "main": "app.js",
   "scripts": {
