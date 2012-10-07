@@ -1,12 +1,15 @@
+'use strict';
+
 var express = require('express'),
     app = express(),
     http = require('http'),
     path = require('path'),
-    gifs = require('./libs/get_gifs.js'),
+    gifs = require('./libs/gifs.js'),
+    util = require('./libs/util.js'),
     server = http.createServer(app),
     io = require('socket.io').listen(server);
 
-app.configure(function() {
+app.configure(function () {
     app.set('port', process.env.PORT || 3000);
     app.set('views', __dirname + '/views');
     app.set('view engine', 'ejs');
@@ -20,44 +23,32 @@ app.configure(function() {
     app.use(express.static(path.join(__dirname, 'public')));
 });
 
-app.configure('development', function() {
-  app.use(express.errorHandler());
+app.configure('development', function () {
+    app.use(express.errorHandler());
 });
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.render('index', { title: 'picchat' });
 });
 
-app.get('/:thread', function(req, res) {
-    gifs.GetGifs('gif', function(fetched) {
-        res.render('messages', { title: req.param('thread'), keyboard: fetched });
+app.get('/:thread', function (req, res) {
+    // tag = args('thread') + 
+    gifs.getGifs('gif', function (fetched) {
+        res.render('messages', {
+            title: req.param('thread'),
+            keyboard: fetched
+        });
     });
 });
 
-var Channel = require('./libs/channel.js'),
-    channels = {};
-
-io.on('connection', function(client) {
-    client.on('message', function(message) {
-
-        var message = JSON.parse(message),
-            name = message.channelName,
-            channel = channels[name] || new Channel(name),
-            msg = message.message;
-
-        channels[name] = channel;
-
-        if (!channel.member(client)) {
-            channel.join(client);
-        }
-
-        channel.broadcast(msg, client);
-    })
-    client.on('disconnect', function() {
-        for (var channel in channels)
-            channels[channel].leave(client);
-    }) 
-})
+io.on('connection', function (client) {
+    client.on('message', function (message) {
+        message = JSON.parse(message);
+        var out = JSON.jsonify({ msg: message.message });
+        client.join(message.channelName);
+        io.sockets.in(message.channelName).emit('message', out);
+    });
+});
 
 server.listen(80);
 console.log('Listening on port 80');

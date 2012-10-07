@@ -1,8 +1,7 @@
 {
   "name": "pictochatty",
-  "version": "0.0.0-17",
+  "version": "0.0.0-24",
   "description": "chatchatchat with pics",
-  "main": "app.js",
   "scripts": {
     "start": "node app.js"
   },

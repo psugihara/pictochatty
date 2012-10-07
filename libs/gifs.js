@@ -1,7 +1,8 @@
-var Request = require('request');
+"use strict";
 
-var tumblr = 'http://api.tumblr.com/v2/tagged?api_key=qbNY5cK4GHZxPElqaVR63ZU9LlIpBhHm2BCpGjPACA1TtaNFjM&limit=20&before=';
+var request = require('request');
 
+var TUMBLR = 'http://api.tumblr.com/v2/tagged?api_key=qbNY5cK4GHZxPElqaVR63ZU9LlIpBhHm2BCpGjPACA1TtaNFjM&limit=20&before=';
 var DEFAULT = [
     'http://25.media.tumblr.com/tumblr_mb5f0oZedW1qzaos7o1_1280.gif',
     'http://24.media.tumblr.com/tumblr_lx1mw8RoSU1qil3j5o1_500.gif',
@@ -25,32 +26,26 @@ var DEFAULT = [
     'http://24.media.tumblr.com/tumblr_mb4tfn7z1e1rehgzwo1_500.gif'
 ];
 
-function randomDateIn2012() 
-{
-    var startOfYear = 1325431871;
-    return startOfYear + Math.random() * (1349019156 - startOfYear);
-}
+var getGifs = module.exports.getGifs = function (tag, cb) {
+    var req = {url: TUMBLR + '&tag=gif', json: true};
+    request(req, function (error, res, body) {
+        if (!error && res.statusCode === 200) {
 
-function GetGifs(tag, cb) {
-    Request({url: tumblr + randomDateIn2012() + '&tag=gif', json:true}, function (error, res, body) {
-        if (!error && res.statusCode == 200) {
+            var urls, i, entry;
 
-            var urls = [];
+            urls = [];
 
-            for (var i = 0; i < body.response.length; i++) {
-                var entry = body.response[i];
+            for (i = 0; i < body.response.length; i += 1) {
+                entry = body.response[i];
                 if (typeof entry.photos !== 'undefined') {
                     urls[i] = entry.photos[0].original_size.url;
                 }
             }
 
             cb(urls);
-        }
-        else {
+        } else {
             cb(DEFAULT);
-            console.log('Response code: ' + res.statusCode + ' for ' + tumblr + tag);
+            console.log('Response code: ' + res.statusCode + ' for ' + req.url);
         }
-  });  
-}
-
-module.exports.GetGifs = GetGifs;
+    });
+};
