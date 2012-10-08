@@ -1,7 +1,5 @@
 'use strict';
 
-var HOST = 'http://pictochatty.com/';
-
 var ID_CHARS = ['©', '∂', 'ß', 'å', 'œ', '∑', '®', '†', '¥', 'ø', 'π',
     '…', 'æ', '≥', '≤', 'µ', '∫'];
 
@@ -46,7 +44,7 @@ Messenger.prototype.receiveMessage = function (message) {
 
 Messenger.prototype.openSocket = function () {
     var self = this;
-    this.socket = io.connect(HOST);
+    this.socket = io.connect('/');
     this.sendMessage(true); // Send off a blank message to register for the channel.
     this.socket.on('message', function(data) {
         var msg = JSON.parse(data).msg;

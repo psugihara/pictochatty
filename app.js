@@ -50,7 +50,7 @@ app.get('/api/gifs', function (req, res) {
 io.on('connection', function (client) {
     client.on('message', function (message) {
         message = JSON.parse(message);
-        var out = JSON.jsonify({ msg: message.message });
+        var out = JSON.stringify({ msg: message.message });
         client.join(message.channelName);
         io.sockets.in(message.channelName).emit('message', out);
     });
