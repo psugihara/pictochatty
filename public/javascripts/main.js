@@ -1,6 +1,6 @@
 'use strict';
 
-var HOST = 'http://pictochatty.jit.su/';
+var HOST = 'http://pictochatty.com/';
 
 var ID_CHARS = ['©', '∂', 'ß', 'å', 'œ', '∑', '®', '†', '¥', 'ø', 'π',
     '…', 'æ', '≥', '≤', 'µ', '∫'];
