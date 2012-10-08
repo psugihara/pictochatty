@@ -2,7 +2,8 @@
 
 var request = require('request');
 
-var TUMBLR = 'http://api.tumblr.com/v2/tagged?api_key=qbNY5cK4GHZxPElqaVR63ZU9LlIpBhHm2BCpGjPACA1TtaNFjM&limit=20&before=';
+var KEY = 'qbNY5cK4GHZxPElqaVR63ZU9LlIpBhHm2BCpGjPACA1TtaNFjM';
+var TUMBLR = 'http://api.tumblr.com/v2/tagged?api_key=' + KEY + '&limit=20';
 var DEFAULT = [
     'http://25.media.tumblr.com/tumblr_mb5f0oZedW1qzaos7o1_1280.gif',
     'http://24.media.tumblr.com/tumblr_lx1mw8RoSU1qil3j5o1_500.gif',
@@ -26,8 +27,18 @@ var DEFAULT = [
     'http://24.media.tumblr.com/tumblr_mb4tfn7z1e1rehgzwo1_500.gif'
 ];
 
+var dateIn2012 = module.exports.dateIn2012 = function () {
+    var startOfYear = 1325431871;
+    return startOfYear + Math.random() * (1349019156 - startOfYear);
+};
+
 var getGifs = module.exports.getGifs = function (tag, cb) {
-    var req = {url: TUMBLR + '&tag=gif', json: true};
+
+    var req = {
+        url: TUMBLR + '&before=' + dateIn2012() + '&tag=gif',
+        json: true
+    };
+
     request(req, function (error, res, body) {
         if (!error && res.statusCode === 200) {
 

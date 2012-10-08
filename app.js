@@ -5,7 +5,6 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     gifs = require('./libs/gifs.js'),
-    util = require('./libs/util.js'),
     server = http.createServer(app),
     io = require('socket.io').listen(server);
 
@@ -32,12 +31,19 @@ app.get('/', function (req, res) {
 });
 
 app.get('/:thread', function (req, res) {
-    // tag = args('thread') + 
-    gifs.getGifs('gif', function (fetched) {
+    var tag = req.params.thread + '+gif';
+    gifs.getGifs(tag, function (fetched) {
         res.render('messages', {
             title: req.param('thread'),
             keyboard: fetched
         });
+    });
+});
+
+app.get('/api/gifs', function (req, res) {
+    gifs.getGifs('gif', function (fetched) {
+        var limit = req.query.limit || fetched.length;
+        res.json(fetched.slice(0, limit));
     });
 });
 
