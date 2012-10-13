@@ -18,7 +18,8 @@
     "socket.io": "latest",
     "express": "latest",
     "ejs": "latest",
-    "request": "latest"
+    "request": "latest",
+    "mongoose": "latest"
   },
   "engines": {
     "node": ">=0.8"

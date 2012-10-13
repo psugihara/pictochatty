@@ -1,9 +1,9 @@
 "use strict";
 
-var request = require('request');
+var request = require('request'),
+    tumblr = require('../config/tumblr');
 
-var KEY = 'qbNY5cK4GHZxPElqaVR63ZU9LlIpBhHm2BCpGjPACA1TtaNFjM';
-var TUMBLR = 'http://api.tumblr.com/v2/tagged?api_key=' + KEY + '&limit=20';
+var TUMBLR = 'http://api.tumblr.com/v2/tagged?api_key=' + tumblr.key + '&limit=20';
 var DEFAULT = [
     'http://25.media.tumblr.com/tumblr_mb5f0oZedW1qzaos7o1_1280.gif',
     'http://24.media.tumblr.com/tumblr_lx1mw8RoSU1qil3j5o1_500.gif',
