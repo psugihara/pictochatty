@@ -1,6 +1,6 @@
 {
   "name": "pictochatty.com",
-  "version": "0.0.0-27",
+  "version": "0.0.0-28",
   "description": "chatchatchat with pics",
   "scripts": {
     "start": "node app.js"
@@ -22,9 +22,5 @@
   },
   "engines": {
     "node": ">=0.8"
-  },
-  "subdomain": "pictochatty",
-  "domains": [
-    "pictochatty.com"
-  ]
+  }
 }
